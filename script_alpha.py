@@ -11,18 +11,20 @@ payload = {'j_username':sys.argv[1],'j_password':sys.argv[2]}
 video_url=sys.argv[3]
 directory=sys.argv[4]     #Attenzione, path completo!
 if directory[-1]!='/':
-    directory.append('/')
+    directory=directory+'/'
+
 
 
 with requests.Session() as s:
     p=s.get('https://idp.polito.it/idp/x509mixed-login')
-    p=s.post('https://idp.polito.it/idp/Authn/X509Mixed/UserPasswordLogin',data=payload)
+    p=s.post('https://idp.polito.it/idp/Authn/X509Mixed/UserPasswordLogin', \
+    	data=payload)
     string=p.text
     start=string.find('action="')+8
     end=string.find('"',start)
     url=string[start:end]
     url=html.unescape(url)                 
-    start=string.find('value="',end)+7    
+    start=string.find('value="',end)+7  
     end=string.find('"/>',start)
     relaystate=string[start:end]
     relaystate=html.unescape(relaystate)
@@ -89,11 +91,23 @@ with requests.Session() as s:
         download_list[i]=p.headers['location']
     #E adesso mi scarico i file
     for i in range(60):
-    	print('\n') #Pulisco il terminale
-    for i in range(len(download_list)):
+        print('\n') #Pulisco il terminale
+    if len(sys.argv)>5:
+        ran=sys.argv[5].split('-')
+        for i in range(len(ran)):
+            ran[i]=int(ran[i])
+        if len(ran)>1:
+            ran=range(ran[0],ran[1])
+        else:
+            ran=range(ran[0],len(download_list))
+    else:
+        ran=range(len(download_list))
+    downloaded=1;
+    for i in ran:
         filename=download_list[i].split('/')[-1]
-        print("Download in corso di '%s' - File %d di %d"% (filename,i+1,len(download_list)), end='\r')
+        print("Download in corso di '%s' - File %d di %d"% (filename,downloaded,len(ran)), end='\r')
         urllib.request.urlretrieve(download_list[i],directory+filename)
+        downloaded+=1
         
 
 print('\n\nDownload videolezioni completato\n\n\n')
