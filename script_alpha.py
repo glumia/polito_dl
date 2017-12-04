@@ -9,9 +9,9 @@ import urllib
 
 payload = {'j_username':sys.argv[1],'j_password':sys.argv[2]}
 video_url=sys.argv[3]
-directory=sys.argv[4]     #Attenzione, path completo!
-if directory[-1]!='/':
-    directory=directory+'/'
+#directory=sys.argv[4]     #Attenzione, path completo!
+#if directory[-1]!='/':
+#    directory=directory+'/'
 
 
 
@@ -106,7 +106,7 @@ with requests.Session() as s:
     for i in ran:
         filename=download_list[i].split('/')[-1]
         print("Download in corso di '%s' - File %d di %d"% (filename,downloaded,len(ran)), end='\r')
-        urllib.request.urlretrieve(download_list[i],directory+filename)
+        urllib.request.urlretrieve(download_list[i],"C:\\"+filename)
         downloaded+=1
         
 
