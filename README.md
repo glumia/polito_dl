@@ -1,5 +1,8 @@
 # polito_dl
 
+Semplice script in python per scaricaricare le videolezioni dal politecnico di Torino
+Simple script to download videolessons from the website of the Politecnico di Torino
+
 
 # Guida all'installazione dei moduli aggiuntivi (requests) su Windows:
 Andare nella cartella in cui si trova l'eseguibile di python col prompt dei comandi
