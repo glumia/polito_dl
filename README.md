@@ -1,15 +1,12 @@
 # polito_dl
-Downloader per le videolezioni del politecnico
 
 
+# Guida all'installazione dei moduli aggiuntivi (requests) su Windows:
+Andare nella cartella in cui si trova l'eseguibile di python col prompt dei comandi
+poi dare il comando "python -m pip install requests"
+(Per vedere dove si trova l'eseguibile di Python aprire una console interattiva e dare i due comandi 'import os' e 'os.getcwd()')
 
-~Da aggiungere nelle prossime versioni <br />
 
-Scrivere una breve documentazione e aggiungere una funzione help che spieghi brevemente lo script <br />
-Sostituire la procedura per l'ottenimento dei link usando beautifulsoup (con l'impostazione attuale basta che cambi di una virgola la formattazione del codice html per incasinare tutto)  <br />
-Inserire qualche messaggio di avanzamento <br />
-Inserire la velocità di download e la % di completamento <br />
-Inserire la possibilità di elencare soltanto e non scaricare tutte le videolezioni <br />
-Inserire la possibilità di scegliere di scaricarne solo alcune <br />
-Inserire la possibilità di scaricare formati diversi <br />
-Effettuare un pò di testing <br />
+# Unix
+pip install requests
+
