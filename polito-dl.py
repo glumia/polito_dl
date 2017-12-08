@@ -17,10 +17,11 @@ def polito_login(user,passw):
         samlresponse=html.unescape(re.findall('name="SAMLResponse".*value="(.*)"',r.text)[0])
         r=s.post('https://login.didattica.polito.it/Shibboleth.sso/SAML2/POST',data={'RelayState':relaystate,'SAMLResponse':samlresponse})
         if r.url=="https://didattica.polito.it/portal/page/portal/home/Studente": #Login Successful
-            return s.cookies
+            login_cookie=s.cookies
         else:
             print("Something went wrong with the login...")
-            return ""
+            login_cookie=""
+    return login_cookie
 
         
 def extract_video_links(url,login_cookie):
@@ -113,6 +114,3 @@ if inp:
         download_video(extract_download_url(links[i-1],lcookie),directory)
 else:
     print("Wrong input")
-
-
-
