@@ -25,7 +25,6 @@ def polito_login(user,passw):
 
 def extract_video_links(url,login_cookie):
     with requests.session() as s:
-        s=requests.session()
         s.cookies=login_cookie
         r=s.get(url) 
     #Different html structure for videolessons on elearning.polito.it and didattica.polito.it
@@ -33,30 +32,40 @@ def extract_video_links(url,login_cookie):
         links=re.findall('href="(sviluppo\.videolezioni\.vis.*lez=\w*)">',r.text)
         for i in range(len(links)):
             links[i]='https://didattica.polito.it/pls/portal30/'+html.unescape(links[i])
-        return links
+    elif "elearning.polito.it" in url:
+        links=re.findall("href='(template_video\.php\?[^']*)",r.text)
+        for i in range(len(links)):
+            links[i]='https://elearning.polito.it/gadgets/video/'+html.unescape(links[i])
     else:
         print("Sorry, still under developement")
-        return ""
+        links=""
+    return links
 
 
-def download_video(url,login_cookie,directory):
+def extract_download_url(url,login_cookie):
     with requests.session() as s:
-        s=requests.session()
         s.cookies=login_cookie
+        r=s.get(url)
         if "didattica.polito.it" in url:
-            r=s.get(url)
             d_url=re.findall('href="(.*)".*Video',r.text)[0]
             r=s.get('https://didattica.polito.it'+html.unescape(d_url),allow_redirects=False)
             d_url=r.headers['location']
-            filename=d_url.split('/')[-1]
-            print('Download in corso di "'+filename+'"')
-            urllib.request.urlretrieve(d_url,os.path.join(directory,filename))
+        elif "elearning.polito.it" in url:
+            d_url=re.findall('href="(download.php[^\"]*).*video1',r.text)[0]
+            r=s.get('https://elearning.polito.it/gadgets/video/'+html.unescape(d_url),allow_redirects=False)
+            d_url=r.headers['location']
         else:
             print("Sorry, still under developement")
-            return ""
+            d_url=""  
+    return d_url     
 
-    
-    
+
+
+
+def download_video(url,directory):
+    filename=url.split('/')[-1]
+    print('Download in corso di "'+filename+'"')
+    urllib.request.urlretrieve(url,os.path.join(directory,filename))
     
     
 
@@ -98,15 +107,9 @@ if inp:
     st=int(inp.groups()[0])
     end=int(inp.groups()[1])
     for i in range(st,end):
-        download_video(links[i-1],lcookie,directory)
+        download_video(extract_download_url(links[i-1],lcookie),directory)
 else:
     print("Wrong input")
-
-
-
-
-
-
 
 
 
