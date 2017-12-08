@@ -23,7 +23,7 @@ def polito_login(user,passw):
             login_cookie=""
     return login_cookie
 
-        
+
 def extract_video_links(url,login_cookie):
     with requests.session() as s:
         s.cookies=login_cookie
@@ -65,15 +65,18 @@ def download_video(url,directory):
     filename=url.split('/')[-1]
     print('Download in corso di "'+filename+'"')
     urllib.request.urlretrieve(url,os.path.join(directory,filename))
-    
-    
 
 
 
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
 #Variables setting
 try:
     directory=os.path.dirname(os.path.realpath(__file__))
