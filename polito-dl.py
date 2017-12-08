@@ -22,7 +22,7 @@ def polito_login(user,passw):
             print("Something went wrong with the login...")
             return ""
 
-
+        
 def extract_video_links(url,login_cookie):
     with requests.session() as s:
         s.cookies=login_cookie
@@ -60,8 +60,6 @@ def extract_download_url(url,login_cookie):
     return d_url     
 
 
-
-
 def download_video(url,directory):
     filename=url.split('/')[-1]
     print('Download in corso di "'+filename+'"')
@@ -71,6 +69,11 @@ def download_video(url,directory):
 
 
 
+    
+    
+    
+    
+#Variables setting
 try:
     directory=os.path.dirname(os.path.realpath(__file__))
 except:
@@ -93,7 +96,7 @@ else:
 
 
 
-#Quick and dirty... horrible code to rewrite in the future
+# Main ----- Quick and horrible code to rewrite in the future
 print("Login on the teaching portal...")
 lcookie=polito_login(user,passw)
 print("Extracting video list...")
