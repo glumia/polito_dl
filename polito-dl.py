@@ -65,26 +65,27 @@ def download_video(url,directory):
     print('Downloading "'+filename+'"...')
     urllib.request.urlretrieve(url,os.path.join(directory,filename))
 
-#Variables setting
-try:
-    directory=os.path.dirname(os.path.realpath(__file__))
-except:
-    directory=os.getcwd()
-
-if len(sys.argv)<2:
-    print("Interactive Mode")
-    user=input("Inserisci il tuo nome utente del politecnico: ")
-    passw=getpass.getpass("Inserisci la tua password: ")
-    video_url=input("Inserisci il link delle videolezioni: ")
-else:
-    user=sys.argv[1]
-    passw=sys.argv[2]
-    video_url=sys.argv[3]
-    if len(sys.argv)==5:
-        directory=sys.argv[4]
-
-# Main ----- Quick and horrible code to rewrite in the future
+# Main
 if __name__=="__main__":
+
+    #Variables setting
+    try:
+        directory=os.path.dirname(os.path.realpath(__file__))
+    except:
+        directory=os.getcwd()
+
+    if len(sys.argv)<2:
+        print("Interactive Mode")
+        user=input("Inserisci il tuo nome utente del politecnico: ")
+        passw=getpass.getpass("Inserisci la tua password: ")
+        video_url=input("Inserisci il link delle videolezioni: ")
+    else:
+        user=sys.argv[1]
+        passw=sys.argv[2]
+        video_url=sys.argv[3]
+        if len(sys.argv)==5:
+            directory=sys.argv[4]
+
     print("Login on the teaching portal...")
     lcookie=polito_login(user,passw)
 
