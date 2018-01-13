@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 
-#Polito Videolessons Downloader 
+#Polito Videolessons Downloader
 
-import os,requests,urllib,re,html,sys
+import os,requests,urllib,re,html,sys,getpass
 
 
 def polito_login(user,passw):
@@ -27,7 +27,7 @@ def polito_login(user,passw):
 def extract_video_links(url,login_cookie):
     with requests.session() as s:
         s.cookies=login_cookie
-        r=s.get(url) 
+        r=s.get(url)
     #Different html structure for videolessons on elearning.polito.it and didattica.polito.it
     if "didattica.polito.it" in url:
         links=re.findall('href="(sviluppo\.videolezioni\.vis.*lez=\w*)">',r.text)
@@ -57,63 +57,51 @@ def extract_download_url(url,login_cookie):
             d_url=r.headers['location']
         else:
             print("Sorry, still under developement")
-            d_url=""  
-    return d_url     
-
+            d_url=""
+    return d_url
 
 def download_video(url,directory):
     filename=url.split('/')[-1]
-    print('Download in corso di "'+filename+'"')
+    print('Downloading "'+filename+'"...')
     urllib.request.urlretrieve(url,os.path.join(directory,filename))
 
+# Main
+if __name__=="__main__":
 
+    #Variables setting
+    try:
+        directory=os.path.dirname(os.path.realpath(__file__))
+    except:
+        directory=os.getcwd()
 
+    if len(sys.argv)<2:
+        print("Interactive Mode")
+        user=input("Inserisci il tuo nome utente del politecnico: ")
+        passw=getpass.getpass("Inserisci la tua password: ")
+        video_url=input("Inserisci il link delle videolezioni: ")
+    else:
+        user=sys.argv[1]
+        passw=sys.argv[2]
+        video_url=sys.argv[3]
+        if len(sys.argv)==5:
+            directory=sys.argv[4]
 
+    print("Login on the teaching portal...")
+    lcookie=polito_login(user,passw)
 
+    print("Extracting video list...")
+    links=extract_video_links(video_url,lcookie)
 
+    print("\n"+str(len(links))+" videos found!")
+    print("Which videolessons do you want to download? Insert a range or a single number, right limit is excluded.")
+    print("(For example to download all the videos give 1-"+str(len(links))+")")
 
+    inp=input("Range: ").split("-") # split on "-"
 
-
-
-
-
-#Variables setting
-try:
-    directory=os.path.dirname(os.path.realpath(__file__))
-except:
-    directory=os.getcwd()
-    
-
-if len(sys.argv)<2:
-    print("Interactive Mode")
-    user=input("Inserisci il tuo nome utente del politecnico: ")
-    passw=input("Inserisci la tua password: ")
-    video_url=input("Inserisci il link delle videolezioni: ")
-else:
-    user=sys.argv[1]
-    passw=sys.argv[2]
-    video_url=sys.argv[3]
-    if len(sys.argv)==5:
-        directory=sys.argv[4]
-
-
-
-
-
-# Main ----- Quick and horrible code to rewrite in the future
-print("Login on the teaching portal...")
-lcookie=polito_login(user,passw)
-print("Extracting video list...")
-links=extract_video_links(video_url,lcookie)
-print("\n"+str(len(links))+" videos found")
-print("Which videolessons do you want to download? Insert a range, right limit is excluded.")
-print("(For example to download all the videos give 1-"+str(len(links)+1)+")")
-inp=input("Range:")
-inp=re.match("(\d*)-(\d*)",inp)
-if inp:
-    st=int(inp.groups()[0])
-    end=int(inp.groups()[1])
-    for i in range(st,end):
-        download_video(extract_download_url(links[i-1],lcookie),directory)
-else:
-    print("Wrong input")
+    if len(inp)>0:
+        st=int(inp[0])
+        end=(int(inp[1]) if len(inp)==2 else int(inp[0]))
+        for i in range(st,end+1):
+            download_video(extract_download_url(links[i-1],lcookie),directory)
+    else:
+        print("Wrong input!")
