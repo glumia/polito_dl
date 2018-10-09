@@ -60,10 +60,46 @@ def extract_download_url(url,login_cookie):
             d_url=""
     return d_url
 
+
 def download_video(url,directory):
     filename=url.split('/')[-1]
     print('Downloading "'+filename+'"...')
     urllib.request.urlretrieve(url,os.path.join(directory,filename))
+    
+
+def extract_syllabus(url,login_cookie):
+    with requests.session() as s:
+        s.cookies=login_cookie
+        r=s.get(url)
+    syllabus=[]
+    if "didattica.polito.it" in url:
+        course=re.search('<div class="h2 text-primary">([^<]*)',r.text).group(1)
+        prof=re.search('<h3>([^<]*)',r.text).group(1)
+        syllabus.append([course,prof])
+        for chunk in r.text.split('<li class="h5">')[1:-1]:
+            title=re.search('href="sviluppo\.videolezioni\.vis.*lez=\w*">([^<]*)</a>',chunk).group(1)
+            date=re.search('<span class="small">[^0-9]*([^<]*)',chunk).group(1)
+            arguments=re.findall('argoLink[^>]*>([^<]*)<',chunk)
+            syllabus.append([title,date,arguments])
+    elif "elearning.polito.it" in url:
+        print("Sorry, still under developement")
+        syllabus=""
+    else:
+        print("Sorry, still under developement")
+        syllabus=""
+    return syllabus
+
+
+def save_syllabus_txt(syllabus):
+    with open("syllabus.txt","w") as fp:
+        fp.write(syllabus[0][0]+" - "+syllabus[0][1]+"\n\n")
+        for lecture in syllabus[1:]:
+            fp.write(lecture[0]+" - "+lecture[1]+"\n")
+            for argument in lecture[2]:
+                fp.write("    "+argument+"\n")
+            fp.write("\n")
+
+            
 
 # Main
 if __name__=="__main__":
