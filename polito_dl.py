@@ -3,8 +3,7 @@
     polito_dl [options] URL
 
 Options:
-    -u, --username USERNAME    PoliTo Username
-    -p, --password PASSWORD    PoliTo Password
+    -a, --auth-file FILE       Get login credentials from FILE
     --list-lectures            List lectures available for download and exit
     --print-syllabus           Print the course syllabus and exit
     --save-syllabus FILE       Save the course syllabus into file and exit
@@ -32,10 +31,11 @@ import requests
 import html
 from docopt import docopt
 from tqdm import tqdm
+import json
 
 __author__ = "gius-italy"
 __license__ = "GPLv3"
-__version__ = "1.0"
+__version__ = "1.1"
 __email__ = "gius-italy@live.it"
 
 
@@ -74,7 +74,7 @@ def get_login_cookie(user, passw):
             data={'RelayState': relaystate, 'SAMLResponse': samlresponse}
             )
         if r.url == \
-        "https://didattica.polito.it/portal/page/portal/home/Studente":
+           "https://didattica.polito.it/portal/page/portal/home/Studente":
             # Login succesful
             login_cookie = s.cookies
         else:
@@ -93,14 +93,14 @@ def get_lectures_urllist(url, login_cookie):
             'href="(sviluppo\.videolezioni\.vis.*lez=\w*)">', r.text)
         for i in range(len(lectures_urllist)):
             lectures_urllist[i] = \
-            'https://didattica.polito.it/pls/portal30/'+html.unescape(
+                'https://didattica.polito.it/pls/portal30/'+html.unescape(
                 lectures_urllist[i])
     elif "elearning.polito.it" in url:
         lectures_urllist = re.findall(
             "href='(template_video\.php\?[^']*)", r.text)
         for i in range(len(lectures_urllist)):
             lectures_urllist[i] = \
-            'https://elearning.polito.it/gadgets/video/'+html.unescape(
+                'https://elearning.polito.it/gadgets/video/'+html.unescape(
                 lectures_urllist[i])
     else:
         # Still under developement
@@ -135,7 +135,7 @@ def get_dlurl(lecture_url, login_cookie, dl_format='video'):
                 dlurl = re.findall(
                     'href="(download.php[^\"]*).*video3', r.text)[0]
             r = s.get(
-                'https://elearning.polito.it/gadgets/video/' + \
+                'https://elearning.polito.it/gadgets/video/' +
                 html.unescape(dlurl), allow_redirects=False)
             dlurl = r.headers['location']
         else:
@@ -162,7 +162,8 @@ def download_file(dlurl, filename=None, csize=1000*1000, quiet=False):
         stream=True)
     if quiet is False:
         with tqdm(total=file_size, initial=first_byte, unit='B',
-                  unit_scale=True, desc=filename) as pbar:
+                  unit_scale=True,
+                  desc=filename[0:6]+"..."+filename[-7:]) as pbar:
             with open(filename, 'ab') as fp:
                 for chunk in r.iter_content(chunk_size=csize):
                     fp.write(chunk)
@@ -223,7 +224,7 @@ def write_syllabus(syllabus, filename=None):
     if filename is None:
         filename = 'syllabus.txt'
     with open(filename, "w") as fp:
-        fp.write('Course: '+syllabus[0][0]+"\n"+"Professor: " + \
+        fp.write('Course: '+syllabus[0][0]+"\n"+"Professor: " +
                  syllabus[0][1]+"\n\n")
         for lecture in syllabus[1:]:
             fp.write(lecture[0]+" - "+lecture[1]+"\n")
@@ -232,17 +233,95 @@ def write_syllabus(syllabus, filename=None):
             fp.write("\n")
 
 
+def load_default_config():
+    user = ''
+    passw = ''
+    if sys.platform.startswith('linux') or sys.platform.startswith('darwin'):
+        home = os.path.expanduser('~')
+        if os.path.isfile(home+'/.config/polito_dl/auth'):
+            if os.stat(home+'/.config/polito_dl/auth')[0] != 33152:
+                print("\n\nWARNING!"
+                      "\nAuth file permissions are not properly set."
+                      "\n(Run 'chmod 600 ~/.config/polito_dl/auth')\n")
+            with open(home+'/.config/polito_dl/auth', 'r') as fp:
+                user, passw = json.load(fp)
+    elif sys.platform.startswith('windows'):
+        appdata = os.getenv('APPDATA')
+        if os.path.isfile(appdata+'\\polito_dl\\auth'):
+            with open(appdata+'\\polito_dl\\auth', 'r') as fp:
+                user, passw = json.load(fp)
+    return [user, passw]
+
+
+def query_yes(message):
+    inp = input(message+" [Y/n] ")
+    if inp[0].lower() == 'y':
+        return True
+    else:
+        return False
+
+
+def update_default_config(user, passw):
+    if sys.platform.startswith('linux') or sys.platform.startswith('darwin'):
+        home = os.path.expanduser('~')
+        if os.path.isfile(home+'/.config/polito_dl/auth'):
+            with open(home+'/.config/polito_dl/auth', 'r') as fp:
+                strd_user, strd_passw = json.load(fp)
+            if strd_user != user:
+                if query_yes("\nDo you want to replace your credentials "
+                             "stored in ~/.config/polito_dl/auth ?"):
+                    with open(home+'/.config/polito_dl/auth', 'w') as fp:
+                        json.dump([user, passw], fp)
+                    os.chmod(home+'/.config/polito_dl/auth', 0o600)
+            else:
+                # Just update the password if needed or do nothing
+                if strd_passw != passw:
+                    with open(home+'/.config/polito_dl/auth', 'w') as fp:
+                        json.dump([user, passw], fp)
+                    os.chmod(home+'/.config/polito_dl/auth', 0o600)
+        else:
+            if query_yes("\nDo you want to store your credentials in "
+                         "~/.config/polito_dl/auth ?"):
+                if not os.path.exists(home+'/.config/polito_dl'):
+                    os.mkdir(home+'/.config/polito_dl')
+                with open(home+'/.config/polito_dl/auth', 'w') as fp:
+                    json.dump([user, passw], fp)
+                os.chmod(home+'/.config/polito_dl/auth', 0o600)
+    elif sys.platform.startswith('windows'):
+        appdata = os.getenv('APPDATA')
+        if os.path.isfile(appdata+'\\polito_dl\\auth'):
+            with open(appdata+'\\polito_dl\\auth', 'r') as fp:
+                strd_user, strd_passw = json.load(fp)
+            if strd_user != user:
+                if query_yes("\nDo you want to replace your credentials "
+                             "stored in %APPDATA%\\polito_dl\\auth ?"):
+                    with open(appdata+'\\polito_dl\\auth', 'w') as fp:
+                        json.dump([user, passw], fp)
+            else:
+                if strd_passw != passw:
+                    with open(appdata+'\\polito_dl\\auth', 'w') as fp:
+                        json.dump([user, passw], fp)
+        else:
+            if query_yes("\nDo you want to store your credentials in "
+                         "%APPDATA%\\polito_dl\\auth ?"):
+                if not os.path.exists(appdata+'\\polito_dl'):
+                    os.mkdir(appdata+'\\polito_dl')
+                with open(appdata+'\\polito_dl\\auth', 'w') as fp:
+                    json.dump([user, passw], fp)
+
+
 # Main
 if __name__ == "__main__":
     args = docopt(__doc__, version="polito_dl "+__version__)
-    if args['--username'] is None:
-        USERNAME = input("\n"+"Insert your didattica.polito.it username: ")
+    if args['--auth-file'] is None:
+        user, passw = load_default_config()
+        if user == '':
+            user = input("\nInsert your didattica.polito.it username: ")
+            passw = getpass.getpass(
+                    "Insert your didattica.polito.it password: ")
     else:
-        USERNAME = args['--username']
-    if args['--password'] is None:
-        PASSWORD = getpass.getpass("Insert your didattica.polito.it password:")
-    else:
-        PASSWORD = args['--password']
+        with open(args['--auth-file'], 'r') as fp:
+            user, passw = json.load(fp)
     if args['--lecture-start'] is None:
         start_index = 0
     else:
@@ -264,7 +343,9 @@ if __name__ == "__main__":
     else:
         CSIZE = int(args['--chunk-size'])
 
-    login_cookie = get_login_cookie(USERNAME, PASSWORD)
+    login_cookie = get_login_cookie(user, passw)
+    if login_cookie:
+        update_default_config(user, passw)
     if args['--list-lectures'] is True:
         syllabus = get_syllabus(args['URL'], login_cookie)
         syllabus = syllabus[1:]
@@ -289,7 +370,7 @@ if __name__ == "__main__":
             if end_index == 0:
                 end_index = len(lect_urllist)
             if not args['--quiet']:
-                print("\nStarting download of "+str(end_index-start_index) + \
+                print("\nStarting download of "+str(end_index-start_index) +
                       " lectures")
             for i in range(start_index, end_index):
                 dlurl = get_dlurl(lect_urllist[i], login_cookie, dl_format)

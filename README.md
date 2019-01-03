@@ -3,10 +3,11 @@ polito_dl - Command-line script and python module to download Polytechnic of Tur
 
 - [Installation](#Installation)
 - [Description](#Description)
+- [Examples](#Examples)
 
 
 # Installation
-Ubuntu or other unix-lixe systems:
+Ubuntu or Debian:
 
     sudo apt install python3-pip
     pip3 install -r requirements.txt
@@ -21,15 +22,14 @@ Then open the command prompt and type:
   
 # Description
 **polito_dl** is a script written in Python to download video lessons from didattica.polito.it and elearning.polito.it with a simple and powerful command-line interface. It features a nice download progress bar and possibility to resume downloads.
-URL can be the link of a single videolesson or the course's on-line lessons main page. 
+URL can be the link of a single videolesson or the course's on-line lessons main page.
 
 
     Usage:
     polito_dl [options] URL
      
     Options:
-    -u, --username USERNAME    PoliTo Username
-    -p, --password PASSWORD    PoliTo Password
+    -a, --auth-file FILE       Get login credentials from FILE
     --list-lectures            List lectures available for download and exit
     --print-syllabus           Print the course syllabus and exit
     --save-syllabus FILE       Save the course syllabus into file and exit
@@ -54,13 +54,23 @@ URL can be the link of a single videolesson or the course's on-line lessons main
     $ ./polito_dl.py "https://didattica.polito.it/pls/portal30/sviluppo.videolezioni.vis?cor=371"
      
     Insert your didattica.polito.it username: s424242
-    Insert your didattica.polito.it password:
+    Insert your didattica.polito.it password: 
      
-    Starting download of 50 lectures
-    Algoritmi_e_programmazione_lez_01.mp4:   3%|███▊          | 4.00M/131M [00:04<02:18, 912kB/s]
+    Do you want to store your credentials in ~/.config/polito_dl/auth ? [Y/n] y
+     
+    Starting download of 57 lectures
+    Algori..._01.mp4:   4%|█▌                                        | 5.00M/131M [00:01<01:30, 1.38MB/s]
 
 
-    $ ./polito_dl.py -u s424242 -p MyPassword --list-lectures "https://didattica.polito.it/pls/portal30/sviluppo.videolezioni.vis?cor=371" | more
+    $ cat cred_file
+    ["s424242", "my_p4ssw0rd"]
+    $ ./polito_dl.py --auth-file cred_file "https://didattica.polito.it/pls/portal30/sviluppo.videolezioni.vis?cor=371"
+     
+    Starting download of 57 lectures
+    Algori..._01.mp4:   4%|█▌                                        | 5.00M/131M [00:01<01:30, 1.38MB/s]
+
+
+    $ ./polito_dl.py --list-lectures "https://didattica.polito.it/pls/portal30/sviluppo.videolezioni.vis?cor=371" | more
      
     Lectures list
     1) 2019_Lezione 01
@@ -71,7 +81,7 @@ URL can be the link of a single videolesson or the course's on-line lessons main
     --More--    
 
 
-    $ ./polito_dl.py -u s424242 -p MyPassword --print-syllabus "https://didattica.polito.it/pls/portal30/sviluppo.videolezioni.vis?cor=371" | more
+    $ ./polito_dl.py --print-syllabus "https://didattica.polito.it/pls/portal30/sviluppo.videolezioni.vis?cor=371" | more
      
     Course: Python Scripting
     Professor: Prof. Mario Rossi
@@ -86,6 +96,8 @@ URL can be the link of a single videolesson or the course's on-line lessons main
      
      
     --More--
+
+
 
 
 
