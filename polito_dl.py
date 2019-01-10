@@ -245,7 +245,7 @@ def load_default_config():
                       "\n(Run 'chmod 600 ~/.config/polito_dl/auth')\n")
             with open(home+'/.config/polito_dl/auth', 'r') as fp:
                 user, passw = json.load(fp)
-    elif sys.platform.startswith('windows'):
+    elif sys.platform.startswith('win'):
         appdata = os.getenv('APPDATA')
         if os.path.isfile(appdata+'\\polito_dl\\auth'):
             with open(appdata+'\\polito_dl\\auth', 'r') as fp:
@@ -287,7 +287,7 @@ def update_default_config(user, passw):
                 with open(home+'/.config/polito_dl/auth', 'w') as fp:
                     json.dump([user, passw], fp)
                 os.chmod(home+'/.config/polito_dl/auth', 0o600)
-    elif sys.platform.startswith('windows'):
+    elif sys.platform.startswith('win'):
         appdata = os.getenv('APPDATA')
         if os.path.isfile(appdata+'\\polito_dl\\auth'):
             with open(appdata+'\\polito_dl\\auth', 'r') as fp:
