@@ -57,25 +57,24 @@ def get_login_cookie(user, passw):
         r = s.post(
             'https://idp.polito.it/idp/Authn/X509Mixed/UserPasswordLogin',
             data={'j_username': user, 'j_password': passw})
-        relaystate = html.unescape(
-            re.findall('name="RelayState".*value="(.*)"', r.text)[0])
-        samlresponse = html.unescape(
-            re.findall('name="SAMLResponse".*value="(.*)"', r.text)[0])
-        r = s.post(
-            'https://www.polito.it/Shibboleth.sso/SAML2/POST',
-            data={'RelayState': relaystate, 'SAMLResponse': samlresponse})
-        r = s.post('https://login.didattica.polito.it/secure/ShibLogin.php')
-        relaystate = html.unescape(
-            re.findall('name="RelayState".*value="(.*)"', r.text)[0])
-        samlresponse = html.unescape(
-            re.findall('name="SAMLResponse".*value="(.*)"', r.text)[0])
-        r = s.post(
-            'https://login.didattica.polito.it/Shibboleth.sso/SAML2/POST',
-            data={'RelayState': relaystate, 'SAMLResponse': samlresponse}
-            )
-        if r.url == \
-           "https://didattica.polito.it/portal/page/portal/home/Studente":
-            # Login succesful
+        if r.url == "https://idp.polito.it:443/idp/profile/SAML2/Redirect/SSO":
+            # Login successfull, we just need to follow some redirects
+            relaystate = html.unescape(
+                re.findall('name="RelayState".*value="(.*)"', r.text)[0])
+            samlresponse = html.unescape(
+                re.findall('name="SAMLResponse".*value="(.*)"', r.text)[0])
+            r = s.post(
+                'https://www.polito.it/Shibboleth.sso/SAML2/POST',
+                data={'RelayState': relaystate, 'SAMLResponse': samlresponse})
+            r = s.post('https://login.didattica.polito.it/secure/ShibLogin.php')
+            relaystate = html.unescape(
+                re.findall('name="RelayState".*value="(.*)"', r.text)[0])
+            samlresponse = html.unescape(
+                re.findall('name="SAMLResponse".*value="(.*)"', r.text)[0])
+            r = s.post(
+                'https://login.didattica.polito.it/Shibboleth.sso/SAML2/POST',
+                data={'RelayState': relaystate, 'SAMLResponse': samlresponse}
+                )
             login_cookie = s.cookies
         else:
             login_cookie = ""
@@ -105,6 +104,7 @@ def get_lectures_urllist(url, login_cookie):
     else:
         # Still under developement
         new_domain_message()
+        exit(1)
         lectures_urllist = ""
     return lectures_urllist
 
@@ -141,6 +141,7 @@ def get_dlurl(lecture_url, login_cookie, dl_format='video'):
         else:
             # Still under developement
             new_domain_message()
+            exit(1)
             dlurl = ""
     return dlurl
 
@@ -200,11 +201,33 @@ def get_syllabus(url, login_cookie):
             arguments = re.findall('argoLink[^>]*>([^<]*)<', chunk)
             syllabus.append([title, date, arguments])
     elif "elearning.polito.it" in url:
-        print("Sorry, this works only on didattica.polito.it")
-        syllabus = ""
+        course = re.search(
+                "<h2>(.*)</h2>",
+                r.text
+                ).group(1)
+        prof = re.search(
+                "<h3>(.*)</h3>",
+                r.text
+                ).group(1)
+        syllabus.append([course, prof])
+        # Cutting out unnecessary html
+        r = r.text.split("<ul class='lezioni'")[1]
+        r = r.split("</ul>")[0]
+        for chunk in r.split("<li>")[1:]:
+            title = re.search(
+                "<a href=.*'>(.*)</a>",
+                chunk
+                ).group(1)
+            date = re.search(
+                "del&nbsp;(.*)</span>",
+                chunk
+                ).group(1)
+            arguments = re.findall('argoLink[^>]*>([^<]*)<', chunk)
+            syllabus.append([title, date, arguments])
     else:
         print("Sorry, this works only on didattica.polito.it")
         syllabus = ""
+        exit(1)
     return syllabus
 
 
@@ -264,6 +287,7 @@ def query_yes(message):
 def update_default_config(user, passw):
     if sys.platform.startswith('linux') or sys.platform.startswith('darwin'):
         home = os.path.expanduser('~')
+        #Update existing default config
         if os.path.isfile(home+'/.config/polito_dl/auth'):
             with open(home+'/.config/polito_dl/auth', 'r') as fp:
                 strd_user, strd_passw = json.load(fp)
@@ -279,6 +303,7 @@ def update_default_config(user, passw):
                     with open(home+'/.config/polito_dl/auth', 'w') as fp:
                         json.dump([user, passw], fp)
                     os.chmod(home+'/.config/polito_dl/auth', 0o600)
+        #Create a new default config
         else:
             if query_yes("\nDo you want to store your credentials in "
                          "~/.config/polito_dl/auth ?"):
@@ -344,8 +369,13 @@ if __name__ == "__main__":
         CSIZE = int(args['--chunk-size'])
 
     login_cookie = get_login_cookie(user, passw)
-    if login_cookie:
-        update_default_config(user, passw)
+    while not login_cookie:
+        print("\nSomething went wrong with the login, verify username and password")
+        user = input("Insert your didattica.polito.it username: ")
+        passw = getpass.getpass(
+                "Insert your didattica.polito.it password: ")
+        login_cookie = get_login_cookie(user,passw)
+    update_default_config(user, passw)
     if args['--list-lectures'] is True:
         syllabus = get_syllabus(args['URL'], login_cookie)
         syllabus = syllabus[1:]
@@ -359,6 +389,7 @@ if __name__ == "__main__":
         syllabus = get_syllabus(args['URL'], login_cookie)
         write_syllabus(syllabus, args['--save-syllabus'])
     else:
+        #Default, download all videolectures
         lect_urllist = get_lectures_urllist(args['URL'], login_cookie)
         if items:
             if not args['--quiet']:
