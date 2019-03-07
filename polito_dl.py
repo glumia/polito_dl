@@ -192,7 +192,7 @@ def get_courses_list(login_cookie, MAX_COR = 500):
     with requests.session() as s:
         s.cookies = lcook
         for i in range(1, MAX_COR):
-            r = s.get(baseurl + str(i)) 
+            r = s.get(baseurl + str(i))
             match = re.search(
                 '<div class="h2 text-primary">(.*)</div>', r.text)
             if match is not None:
