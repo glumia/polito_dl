@@ -177,6 +177,35 @@ def download_file(dlurl, filename=None, csize=1000*1000, quiet=False):
     return file_size
 
 
+def get_courses_list(login_cookie, MAX_COR = 500):
+# Cerca tutte le videolezioni disponibili sulla piattaforma didattica.polito.it
+# e le salva in una lista.
+#
+# Ad oggi 07/03/19 l'ultimo corso si trova al numero 404
+#
+# courses_list[i][0] Nome corso
+# courses_list[i][1] Professore
+# courses_list[i][2] Data della prima lezione
+# courses_list[i][3] Url
+    baseurl = "https://didattica.polito.it/portal/pls/portal/sviluppo.videolezioni.vis?cor="
+    courses_list = []
+    with requests.session() as s:
+        s.cookies = lcook
+        for i in range(1, MAX_COR):
+            r = s.get(baseurl + str(i)) 
+            match = re.search(
+                '<div class="h2 text-primary">(.*)</div>', r.text)
+            if match is not None:
+                prof = re.search('<h3>\s*Prof\.\s*(.*)</h3>', r.text)
+                if prof is not None:
+                    prof = prof.group(1)
+                date = re.search('\d{2}/(\d{2}/\d{4})', r.text)
+                if date is not None:
+                    date = data.group(1)
+                courses_list.append([match.group(1),prof,date,r.url])
+    return courses_list
+
+
 def get_syllabus(url, login_cookie):
     with requests.session() as s:
         s.cookies = login_cookie
