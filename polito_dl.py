@@ -33,7 +33,7 @@ from docopt import docopt
 from tqdm import tqdm
 import json
 
-__author__ = "gius-italy"
+__author__ = "glumia"
 __license__ = "GPLv3"
 __version__ = "1.1"
 __email__ = "gius-italy@live.it"
