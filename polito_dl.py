@@ -36,7 +36,7 @@ import json
 __author__ = "glumia"
 __license__ = "GPLv3"
 __version__ = "1.1"
-__email__ = "gius-italy@live.it"
+__email__ = "glumia@protonmail.com"
 
 
 def new_domain_message():
