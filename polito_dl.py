@@ -24,14 +24,18 @@ Options:
 """
 
 import os
+import ssl
 import sys
 import getpass
 import re
 import requests
 import html
 from docopt import docopt
+from requests.adapters import HTTPAdapter, DEFAULT_POOLBLOCK
 from tqdm import tqdm
 import json
+from urllib3 import PoolManager
+
 
 __author__ = "glumia"
 __license__ = "GPLv3"
@@ -45,6 +49,19 @@ def new_domain_message():
         "didattica.polito.it or elearning.polito.it send me an mail or open "
         "an issue on Github."
         )
+
+
+class LegacyHTTPSAdapter(HTTPAdapter):
+    def init_poolmanager(
+        self, connections, maxsize, block=DEFAULT_POOLBLOCK, **pool_kwargs
+    ):
+        self.poolmanager = PoolManager(
+            num_pools=connections,
+            maxsize=maxsize,
+            block=block,
+            ssl_version=ssl.PROTOCOL_TLSv1,
+        )
+
 
 
 def get_login_cookie(user, passw):
@@ -66,6 +83,7 @@ def get_login_cookie(user, passw):
             r = s.post(
                 'https://www.polito.it/Shibboleth.sso/SAML2/POST',
                 data={'RelayState': relaystate, 'SAMLResponse': samlresponse})
+            s.mount("https://", LegacyHTTPSAdapter())
             r = s.post('https://login.didattica.polito.it/secure/ShibLogin.php')
             relaystate = html.unescape(
                 re.findall('name="RelayState".*value="(.*)"', r.text)[0])
