@@ -7,7 +7,7 @@ def get_videolesson_paths(html_content):
     matches = re.findall(pattern, html_content)
     paths = (
         path for path in matches if "seek" not in path
-    )  # Filter out links to specific arguments of videolessons
+    )  # Filter out links to specific arguments of video lessons
     unescaped_paths = [html.unescape(path) for path in paths]
     return unescaped_paths
 

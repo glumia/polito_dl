@@ -8,7 +8,7 @@ setuptools.setup(
     version="2.0.0",
     author="Giuseppe Lumia",
     author_email="glumia@protonmail.com",
-    description="A script to download videolessons from PoliTo's portal",
+    description="A script to download video lessons from PoliTo's portal",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/glumia/polito_dl",
