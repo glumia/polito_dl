@@ -1,4 +1,4 @@
-from polito_dl.scraper import get_videolesson_paths
+from polito_dl.scraper import get_videolesson_paths, get_course_name, get_professor_name
 
 with open("tests/html/sviluppo_videolezioni_vis.html", "r") as fp:
     fake_course_page = fp.read()
@@ -78,3 +78,13 @@ def test_get_videolesson_paths():
         "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=22394",
     }
     assert set(paths) == expected_paths
+
+
+def test_get_course_name():
+    course_name = get_course_name(fake_course_page)
+    assert course_name == "Algoritmi e programmazione"
+
+
+def test_get_professor_name():
+    professor_name = get_professor_name(fake_course_page)
+    assert professor_name == "Paolo Enrico CAMURATI"
