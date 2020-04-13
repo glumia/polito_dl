@@ -62,9 +62,10 @@ def test_get_saml_response_not_found():
         get_saml_response(malformed_html)
 
 
-def test_login_invalid_credentials(rmock):
-    rmock.post("https://idp.polito.it/idp/Authn/X509Mixed/UserPasswordLogin")
-    # If login is successful this request should redirect to
+def test_login_invalid_credentials(requests_mock):
+    requests_mock.get("https://idp.polito.it/idp/x509mixed-login")
+    requests_mock.post("https://idp.polito.it/idp/Authn/X509Mixed/UserPasswordLogin")
+    # If login is successful the previous request should redirect to
     # "https://idp.polito.it:443/idp/profile/SAML2/Redirect/SSO", here we are
     # intentionally *not* doing this.
     with pytest.raises(InvalidCredentials):
