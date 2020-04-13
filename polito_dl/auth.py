@@ -1,8 +1,8 @@
-import re
-import html
 import ssl
 
 from requests.adapters import HTTPAdapter, DEFAULT_POOLBLOCK, PoolManager
+
+from polito_dl.utils import parse_html
 
 
 class RelayStateNotFound(ValueError):
@@ -10,11 +10,11 @@ class RelayStateNotFound(ValueError):
 
 
 def get_relay_state(html_content):
-    pattern = r'.*name="RelayState" value="(.*)".*'
-    match = re.search(pattern, html_content)
-    if not match:
+    soup = parse_html(html_content)
+    tag = soup.find("input", {"name": "RelayState"})
+    if not tag:
         raise RelayStateNotFound
-    relay_state = html.unescape(match.groups()[0])
+    relay_state = tag["value"]
     return relay_state
 
 
@@ -23,11 +23,11 @@ class SAMLResponseNotFound(ValueError):
 
 
 def get_saml_response(html_content):
-    pattern = r'.*name="SAMLResponse" value="(.*)".*'
-    match = re.search(pattern, html_content)
-    if not match:
+    soup = parse_html(html_content)
+    tag = soup.find("input", {"name": "SAMLResponse"})
+    if not tag:
         raise SAMLResponseNotFound
-    saml_response = match.groups()[0]
+    saml_response = tag["value"]
     return saml_response
 
 

@@ -1,27 +1,23 @@
-import html
-import re
+from polito_dl.utils import parse_html
 
 
 def get_videolesson_paths(html_content):
-    pattern = r'<a.*href="(sviluppo.videolezioni.vis.*)">.*'
-    matches = re.findall(pattern, html_content)
-    paths = (
-        path for path in matches if "seek" not in path
-    )  # Filter out links to specific arguments of video lessons
-    unescaped_paths = [html.unescape(path) for path in paths]
-    return unescaped_paths
+    soup = parse_html(html_content)
+    navbar_content = soup.find("ul", {"id": "navbar_left_menu"})
+    tags = navbar_content.findAll("li", {"class": "h5"})
+    paths = [tag.a["href"] for tag in tags]
+    return paths
 
 
 def get_course_name(html_content):
-    pattern = r'.*class="h2 text-primary">(.*)<'
-    match = re.search(pattern, html_content)
-    return match.groups()[0] if match else None
+    soup = parse_html(html_content)
+    tag = soup.find("div", {"class": "h2 text-primary"})
+    return tag.text
 
 
 def get_professor_name(html_content):
-    pattern = r".*Prof\.\s*(.*)<"
-    match = re.search(pattern, html_content)
-    return match.groups()[0] if match else None
+    soup = parse_html(html_content)
+    return soup.h3.text.replace("Prof.", "").strip()
 
 
 # TODO: Use BeautifulSoup for lectures info scraping, regex is really not viable for

@@ -19,5 +19,5 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     python_requires=">=3.6",  # TODO: Check correct version
-    install_requires=["requests"],
+    install_requires=["requests", "bs4"],
 )
