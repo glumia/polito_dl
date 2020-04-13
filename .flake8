@@ -1,0 +1,12 @@
+[flake8]
+exclude =
+    __pycache__/,
+    *.egg-info/,
+    .pytest_cache/,
+    .idea/
+filename =
+    *.py
+max-complexity = 18
+max-line-length = 88
+show_source = True
+verbose = 1
