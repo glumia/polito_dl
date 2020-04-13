@@ -72,3 +72,6 @@ def login(session, username, password):
         "https://login.didattica.polito.it/Shibboleth.sso/SAML2/POST",
         data={"RelayState": relaystate, "SAMLResponse": samlresponse},
     )
+
+    resp = session.head("https://didattica.polito.it/portal/page/portal/home/Studente")
+    assert resp.status_code == 200

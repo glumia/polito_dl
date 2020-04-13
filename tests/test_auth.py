@@ -52,7 +52,7 @@ def test_login():
     password = os.getenv("POLITO_PASSWORD")
     with Session() as session:
         login(session, username, password)
-        resp = session.get(
+        resp = session.head(
             "https://didattica.polito.it/portal/page/portal/home/Studente"
         )
         assert resp.status_code == 200
