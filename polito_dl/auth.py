@@ -9,26 +9,29 @@ class RelayStateNotFound(ValueError):
     pass
 
 
-def get_relay_state(html_content):
-    soup = parse_html(html_content)
+def get_relay_state(soup):
     tag = soup.find("input", {"name": "RelayState"})
     if not tag:
         raise RelayStateNotFound
-    relay_state = tag["value"]
-    return relay_state
+    return tag["value"]
 
 
 class SAMLResponseNotFound(ValueError):
     pass
 
 
-def get_saml_response(html_content):
-    soup = parse_html(html_content)
+def get_saml_response(soup):
     tag = soup.find("input", {"name": "SAMLResponse"})
     if not tag:
         raise SAMLResponseNotFound
-    saml_response = tag["value"]
-    return saml_response
+    return tag["value"]
+
+
+def get_sso_params(html_content):
+    soup = parse_html(html_content)
+    relay_state = get_relay_state(soup)
+    saml_response = get_saml_response(soup)
+    return relay_state, saml_response
 
 
 class InvalidCredentials(ValueError):
@@ -57,20 +60,19 @@ def login(session, username, password):
     if resp.url != "https://idp.polito.it:443/idp/profile/SAML2/Redirect/SSO":
         raise InvalidCredentials("check username and password.")
 
-    relaystate = get_relay_state(resp.text)
-    samlresponse = get_saml_response(resp.text)
+    relay_state, saml_response = get_sso_params(resp.text)
     session.post(
         "https://www.polito.it/Shibboleth.sso/SAML2/POST",
-        data={"RelayState": relaystate, "SAMLResponse": samlresponse},
+        data={"RelayState": relay_state, "SAMLResponse": saml_response},
     )
 
     session.mount("https://login.didattica.polito.it", LegacyHTTPSAdapter())
     resp = session.post("https://login.didattica.polito.it/secure/ShibLogin.php")
-    relaystate = get_relay_state(resp.text)
-    samlresponse = get_saml_response(resp.text)
+
+    relay_state, saml_response = get_sso_params(resp.text)
     session.post(
         "https://login.didattica.polito.it/Shibboleth.sso/SAML2/POST",
-        data={"RelayState": relaystate, "SAMLResponse": samlresponse},
+        data={"RelayState": relay_state, "SAMLResponse": saml_response},
     )
 
     resp = session.head("https://didattica.polito.it/portal/page/portal/home/Studente")
