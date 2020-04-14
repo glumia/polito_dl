@@ -1,90 +1,106 @@
-from polito_dl.scraper import get_videolesson_paths, get_course_name, get_professor_name
+from polito_dl.scraper import (
+    get_course_name,
+    get_professor_name,
+    get_lecture_name,
+    get_lecture_date,
+    get_lecture_path,
+    get_lecture_topics,
+    get_lectures_data,
+)
+from polito_dl.utils import parse_html
 
 with open("tests/html/sviluppo_videolezioni_vis.html", "r") as fp:
-    fake_course_page = fp.read()
-
-
-def test_get_videolesson_paths():
-    paths = get_videolesson_paths(fake_course_page)
-    expected_paths = {
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=21471",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=22159",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=21718",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=21307",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=22569",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=22515",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=21360",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=21009",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=21079",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=21804",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=21311",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=22267",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=22309",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=22343",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=22445",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=21508",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=22518",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=22335",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=22570",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=21239",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=21666",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=21357",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=22449",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=21892",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=21436",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=22208",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=21628",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=22146",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=21003",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=21603",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=21801",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=20957",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=22028",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=21156",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=21149",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=21733",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=21512",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=19668",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=21871",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=21863",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=21997",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=19638",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=21604",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=21100",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=21749",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=21665",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=21232",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=20920",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=22142",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=22435",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=19726",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=19649",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=21217",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=21466",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=22059",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=22064",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=22205",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=19818",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=22271",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=21478",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=21099",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=21935",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=21430",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=22524",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=22437",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=21927",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=20923",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=21994",
-        "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=22394",
-    }
-    assert set(paths) == expected_paths
+    course_page_content = fp.read()
+course_soup = parse_html(course_page_content)
+lecture_tag = course_soup.find("ul", {"id": "navbar_left_menu"}).find(
+    "li", {"class": "h5"}
+)
+lecture_details_tag = course_soup.find("ul", {"id": "navbar_left_menu"}).find(
+    "li", {"class": "h6 argomentiEspansi"}
+)
 
 
 def test_get_course_name():
-    course_name = get_course_name(fake_course_page)
+    course_name = get_course_name(course_soup)
     assert course_name == "Algoritmi e programmazione"
 
 
 def test_get_professor_name():
-    professor_name = get_professor_name(fake_course_page)
+    professor_name = get_professor_name(course_soup)
     assert professor_name == "Paolo Enrico CAMURATI"
+
+
+def test_get_lecture_name():
+    lecture_name = get_lecture_name(lecture_tag)
+    assert lecture_name == "2020_Lezione 01"
+
+
+def test_get_lecture_date():
+    lecture_date = get_lecture_date(lecture_tag)
+    assert lecture_date == "30/09/2019"
+
+
+def test_get_lecture_path():
+    lecture_path = get_lecture_path(lecture_tag)
+    assert (
+        lecture_path
+        == "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=19638"
+    )
+
+
+def test_get_lecture_topics():
+    lecture_topics = get_lecture_topics(lecture_details_tag)
+    assert set(lecture_topics) == {"Introduzione al corso"}
+
+
+def test_get_lectures_data():
+    lectures_data = get_lectures_data(course_soup)
+    expected_lectures_data = [
+        {
+            "name": "2020_Lezione 01",
+            "date": "30/09/2019",
+            "path": "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=19638",
+            "topics": ["Introduzione al corso"],
+        },
+        {
+            "name": "2020_Lezione 02",
+            "date": "30/09/2019",
+            "path": "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=19649",
+            "topics": ["L'essenziale del linguaggio C (parte 1)"],
+        },
+        {
+            "name": "2020_Lezione 03",
+            "date": "01/10/2019",
+            "path": "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=19668",
+            "topics": ["Gli Algoritmi"],
+        },
+        {
+            "name": "2020_Lezione 04",
+            "date": "03/10/2019",
+            "path": "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=19818",
+            "topics": ["L'essenziale del linguaggio C (parte 2)"],
+        },
+        {
+            "name": "2020_Lezione 05",
+            "date": "03/10/2019",
+            "path": "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=19726",
+            "topics": ["Esercitazione 01 - Gomoku"],
+        },
+        {
+            "name": "2020_Lezione 06",
+            "date": "07/10/2019",
+            "path": "sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=20920",
+            "topics": ["Gli Algoritmi", "Analisi della complessita'"],
+        },
+    ]
+    assert all(
+        all(
+            (
+                lect["name"] == exp_lect["name"],
+                lect["date"] == exp_lect["date"],
+                lect["path"] == exp_lect["path"],
+                set(lect["topics"]) == set(exp_lect["topics"]),
+            )
+        )
+        for lect, exp_lect in zip(lectures_data, expected_lectures_data)
+    )
