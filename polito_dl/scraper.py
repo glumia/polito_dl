@@ -42,7 +42,7 @@ def get_lectures_data(soup):
     ]
 
 
-def scrape_page(html_content):
+def scrape(html_content):
     soup = parse_html(html_content)
     course_name = get_course_name(soup)
     professor_name = get_professor_name(soup)

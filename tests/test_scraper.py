@@ -6,6 +6,7 @@ from polito_dl.scraper import (
     get_lecture_path,
     get_lecture_topics,
     get_lectures_data,
+    scrape,
 )
 from polito_dl.utils import parse_html
 
@@ -104,3 +105,11 @@ def test_get_lectures_data():
         )
         for lect, exp_lect in zip(lectures_data, expected_lectures_data)
     )
+
+
+def test_scrape():
+    assert scrape(course_page_content) == {
+        "course": get_course_name(course_soup),
+        "professor": get_professor_name(course_soup),
+        "lectures": get_lectures_data(course_soup),
+    }
