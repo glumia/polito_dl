@@ -8,7 +8,7 @@ from tqdm import tqdm
 DEFAULT_CSIZE = 1000 * 1000  # 1MB
 
 
-def download_file(url, filename=None, csize=DEFAULT_CSIZE, quiet=False):
+def download_file(url, filename=None, csize=None, quiet=False):
     """Download file located at `url` and show a progress bar.
 
     :param url: File's URL.
@@ -23,6 +23,9 @@ def download_file(url, filename=None, csize=DEFAULT_CSIZE, quiet=False):
     this could cause errors if a different file with the same name is present
     in the directory!).
     """
+    if csize is None:
+        csize = DEFAULT_CSIZE
+
     r = requests.get(url, stream=True)
     file_size = int(r.headers["Content-Length"])
     if filename is None:
