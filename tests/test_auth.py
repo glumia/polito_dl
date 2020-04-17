@@ -12,7 +12,7 @@ from polito_dl.auth import (
     SAMLResponseNotFound,
     get_sso_params,
 )
-from polito_dl.utils import parse_html
+from polito_dl.parsing import parse_html
 
 with open("tests/html/SSO.html", "r") as fp:
     sso_content = fp.read()

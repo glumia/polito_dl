@@ -2,7 +2,7 @@ import ssl
 
 from requests.adapters import HTTPAdapter, DEFAULT_POOLBLOCK, PoolManager
 
-from polito_dl.utils import parse_html
+from polito_dl.parsing import parse_html
 
 
 class RelayStateNotFound(ValueError):

@@ -1,4 +1,7 @@
-from polito_dl.scraper import (
+from bs4 import BeautifulSoup
+
+from polito_dl.parsing import (
+    parse_html,
     get_course_name,
     get_professor_name,
     get_lecture_name,
@@ -6,13 +9,21 @@ from polito_dl.scraper import (
     get_lecture_path,
     get_lecture_topics,
     get_lectures_data,
-    scrape,
+    get_course_data,
+    get_video_path,
+    get_iphone_path,
+    get_audio_path,
+    get_download_paths,
 )
-from polito_dl.utils import parse_html
+
+
+def test_parse_html():
+    assert isinstance(parse_html("dummy_html_content"), BeautifulSoup)
+
 
 with open("tests/html/sviluppo_videolezioni_vis.html", "r") as fp:
     course_page_content = fp.read()
-course_soup = parse_html(course_page_content)
+course_soup = BeautifulSoup(course_page_content, features="html.parser")
 lecture_tag = course_soup.find("ul", {"id": "navbar_left_menu"}).find(
     "li", {"class": "h5"}
 )
@@ -107,9 +118,38 @@ def test_get_lectures_data():
     )
 
 
-def test_scrape():
-    assert scrape(course_page_content) == {
-        "course": get_course_name(course_soup),
+def test_get_course_data():
+    assert get_course_data(course_soup) == {
+        "name": get_course_name(course_soup),
         "professor": get_professor_name(course_soup),
         "lectures": get_lectures_data(course_soup),
+    }
+
+
+def test_get_video_path():
+    assert (
+        get_video_path(course_soup)
+        == "/pls/portal30/sviluppo.videolezioni.download?fid=76422"
+    )
+
+
+def test_get_iphone_path():
+    assert (
+        get_iphone_path(course_soup)
+        == "/pls/portal30/sviluppo.videolezioni.download?fid=76424"
+    )
+
+
+def test_get_audio_path():
+    assert (
+        get_audio_path(course_soup)
+        == "/pls/portal30/sviluppo.videolezioni.download?fid=76423"
+    )
+
+
+def test_get_download_paths():
+    assert get_download_paths(course_soup) == {
+        "video": get_video_path(course_soup),
+        "iphone": get_iphone_path(course_soup),
+        "audio": get_audio_path(course_soup),
     }

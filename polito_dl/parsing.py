@@ -1,4 +1,8 @@
-from polito_dl.utils import parse_html
+from bs4 import BeautifulSoup
+
+
+def parse_html(html_content):
+    return BeautifulSoup(html_content, "html.parser")
 
 
 def get_course_name(soup):
@@ -42,13 +46,35 @@ def get_lectures_data(soup):
     ]
 
 
-def scrape(html_content):
-    soup = parse_html(html_content)
+def get_course_data(soup):
     course_name = get_course_name(soup)
     professor_name = get_professor_name(soup)
     lectures_data = get_lectures_data(soup)
     return {
-        "course": course_name,
+        "name": course_name,
         "professor": professor_name,
         "lectures": lectures_data,
+    }
+
+
+def get_video_path(soup):
+    tag = soup.find("a", text="Video")
+    return tag["href"]
+
+
+def get_iphone_path(soup):
+    tag = soup.find("a", text="iPhone")
+    return tag["href"]
+
+
+def get_audio_path(soup):
+    tag = soup.find("a", text="Audio")
+    return tag["href"]
+
+
+def get_download_paths(soup):
+    return {
+        "video": get_video_path(soup),
+        "iphone": get_iphone_path(soup),
+        "audio": get_audio_path(soup),
     }
