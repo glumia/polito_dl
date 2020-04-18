@@ -20,7 +20,7 @@ from polito_dl.auth import InvalidCredentials
     help="Specify download's url content format. Default: video.",
 )
 @click.argument("url")
-def cli(username, password, print_course, format, url):
+def main(username, password, print_course, format, url):
     """Get lecture direct download URL or print info on course."""
     pdl = PolitoDownloader()
     if not username:
@@ -40,7 +40,3 @@ def cli(username, password, print_course, format, url):
 
     path = url.split("/")[-1]
     click.echo(pdl.get_download_url(path, format=format))
-
-
-if __name__ == "__main__":
-    cli()

@@ -21,4 +21,8 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     install_requires=["requests", "bs4", "click"],
+    entry_points="""
+        [console_scripts]
+        polito_dl=polito_dl.cli:main
+    """,
 )
