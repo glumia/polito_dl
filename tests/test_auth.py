@@ -56,6 +56,7 @@ def test_login_invalid_credentials(requests_mock):
             login(session, "dummy_username", "dummy_password")
 
 
+@pytest.mark.skip(reason="better to test this one by hand when needed.")
 def test_login():
     username = os.getenv("POLITO_USERNAME")
     password = os.getenv("POLITO_PASSWORD")
