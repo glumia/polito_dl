@@ -9,7 +9,8 @@ setuptools.setup(
     author="Giuseppe Lumia",
     author_email="glumia@protonmail.com",
     description=(
-        "A library and CLI tool to download video lectures from PoliTo's portal"
+        "A library and CLI tool to get direct download URLs of video lectures on "
+        "PoliTo's portal"
     ),
     long_description=long_description,
     long_description_content_type="text/markdown",
