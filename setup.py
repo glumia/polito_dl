@@ -8,7 +8,9 @@ setuptools.setup(
     version="2.0.0",
     author="Giuseppe Lumia",
     author_email="glumia@protonmail.com",
-    description="A script to download video lessons from PoliTo's portal",
+    description=(
+        "A library and CLI tool to download video lectures from PoliTo's portal"
+    ),
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/glumia/polito_dl",
@@ -18,6 +20,5 @@ setuptools.setup(
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
         "Operating System :: OS Independent",
     ],
-    python_requires=">=3.6",  # TODO: Check correct version
-    install_requires=["requests", "bs4"],
+    install_requires=["requests", "bs4", "click"],
 )
