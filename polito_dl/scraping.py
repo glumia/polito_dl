@@ -12,7 +12,10 @@ def direct_download_url(session, path):
 
 
 def course_data(session, url):
-    if not url.startswith(base_url + "/portal/pls/portal/sviluppo.videolezioni.vis"):
+    if not (
+        url.startswith(base_url + "/portal/pls/portal/sviluppo.videolezioni.vis")
+        or url.startswith(base_url + "/pls/portal30/sviluppo.videolezioni.vis")
+    ):
         raise ValueError("invalid course URL")
 
     resp = session.get(url)
@@ -21,7 +24,10 @@ def course_data(session, url):
 
 
 def lecture_download_paths(session, url):
-    if not url.startswith(base_url + "/portal/pls/portal/sviluppo.videolezioni.vis"):
+    if not (
+        url.startswith(base_url + "/portal/pls/portal/sviluppo.videolezioni.vis")
+        or url.startswith(base_url + "/pls/portal30/sviluppo.videolezioni.vis")
+    ):
         raise ValueError("invalid lecture URL")
 
     resp = session.get(url)

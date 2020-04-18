@@ -28,13 +28,17 @@ def test_direct_download_url_invalid_path():
         direct_download_url(session, invalid_path)
 
 
+@pytest.mark.parametrize(
+    "path",
+    [
+        "/portal/pls/portal/sviluppo.videolezioni.vis?cor=456",
+        "/pls/portal30/sviluppo.videolezioni.vis?cor=456",
+    ],
+)
 @patch("polito_dl.scraping.get_course_data")
 @patch("polito_dl.scraping.parse_html")
-def test_course_data(parse_html, get_course_data):
-    url = (
-        "https://didattica.polito.it"
-        "/portal/pls/portal/sviluppo.videolezioni.vis?cor=456"
-    )
+def test_course_data(parse_html, get_course_data, path):
+    url = base_url + path
 
     html_content = "dummy_content"
     session = Mock()
@@ -67,13 +71,17 @@ def test_course_data_invalid_url():
         course_data(session, invalid_url)
 
 
+@pytest.mark.parametrize(
+    "path",
+    [
+        base_path + "/sviluppo.videolezioni.vis?cor=456&arg=Lezioni%20on-line&lez=20920"
+        for base_path in ("/portal/pls/portal", "/pls/portal30")
+    ],
+)
 @patch("polito_dl.scraping.get_download_paths")
 @patch("polito_dl.scraping.parse_html")
-def test_lecture_download_paths(parse_html, get_download_paths):
-    url = (
-        "https://didattica.polito.it/portal/pls/portal/sviluppo.videolezioni.vis"
-        "?cor=456&arg=Lezioni%20on-line&lez=20920"
-    )
+def test_lecture_download_paths(parse_html, get_download_paths, path):
+    url = base_url + path
 
     html_content = "dummy_content"
     session = Mock()
