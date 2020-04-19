@@ -14,7 +14,7 @@ from polito_dl.auth import (
 )
 from polito_dl.parsing import parse_html
 
-with open("tests/html/SSO.html", "r") as fp:
+with open("tests/fixtures/SSO.html", "r") as fp:
     sso_content = fp.read()
 sso_content_soup = parse_html(sso_content)
 

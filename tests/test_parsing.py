@@ -21,7 +21,7 @@ def test_parse_html():
     assert isinstance(parse_html("dummy_html_content"), BeautifulSoup)
 
 
-with open("tests/html/sviluppo_videolezioni_vis.html", "r") as fp:
+with open("tests/fixtures/sviluppo_videolezioni_vis.html", "r") as fp:
     course_page_content = fp.read()
 course_soup = BeautifulSoup(course_page_content, features="html.parser")
 lecture_tag = course_soup.find("ul", {"id": "navbar_left_menu"}).find(
