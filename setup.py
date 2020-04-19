@@ -29,5 +29,7 @@ setuptools.setup(
         [console_scripts]
         polito_dl=polito_dl.cli:main
     """,
-    extras_require={"dev": ["pytest", "flake8", "black", "pre-commit"]},
+    extras_require={
+        "dev": ["pytest", "flake8", "black", "pre-commit", "requests-mock"]
+    },
 )
