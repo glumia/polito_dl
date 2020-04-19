@@ -6,6 +6,7 @@ with open("README.md", "r") as fp:
 setuptools.setup(
     name="polito_dl",
     version="2.0.0-alpha",
+    license="GPLv3",
     author="Giuseppe Lumia",
     author_email="glumia@protonmail.com",
     description=(
@@ -16,7 +17,9 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/glumia/polito_dl",
     packages=["polito_dl"],
+    keywords=["polito", "politecnico", "torino"],
     classifiers=[
+        "Development Status :: 3 - Alpha",
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
         "Operating System :: OS Independent",
