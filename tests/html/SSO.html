@@ -1,0 +1,29 @@
+<!--Example of response of GET request to-->
+<!--"https://idp.polito.it:443/idp/profile/SAML2/Redirect/SSO" or POST to-->
+<!--"https://login.didattica.polito.it/secure/ShibLogin.php", both are redirected to-->
+<!--"https://idp.polito.it/idp/profile/SAML2/Redirect/SSO" which has this content.-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+    <head>
+        </head>
+    <body onload="document.forms[0].submit()">
+        <noscript>
+            <p>
+                <strong>Note:</strong> Since your browser does not support JavaScript,
+                you must press the Continue button once to proceed.
+            </p>
+        </noscript>
+
+        <form action="https&#x3a;&#x2f;&#x2f;www.polito.it&#x2f;Shibboleth.sso&#x2f;SAML2&#x2f;POST" method="post">
+            <div>
+                <input type="hidden" name="RelayState" value="cookie&#x3a;dummy_value"/>
+
+                <input type="hidden" name="SAMLResponse" value="dummy_saml_response"/>
+            </div>
+            <noscript>
+                <div>
+                    <input type="submit" value="Continue"/>
+                </div>
+            </noscript>
+        </form>
+            </body>
+</html>

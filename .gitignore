@@ -1,2 +1,7 @@
 .idea
-
+__pycache__
+*.egg-info/
+.pytest_cache
+*.mp4
+*.pyc
+dist

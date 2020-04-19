@@ -1,0 +1,589 @@
+<!--Response of GET request to -->
+<!--"https://didattica.polito.it/pls/portal30/sviluppo.videolezioni.vis?cor=456"-->
+<!--after successful login.-->
+<!DOCTYPE html>
+          <html dir="ltr" lang="it">
+          <head>
+<title>2020_Lezione 01</title>
+<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="theme-color" content="#FF7C11">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#FF7C11">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans:400,700">
+
+      <!-- Bootstrap core CSS -->
+      <link href="https://didattica.polito.it/jquery/bootstrap-3.3.6/css/bootstrap.min.css" rel="stylesheet">
+      <link href="https://didattica.polito.it/jquery/test_portale/css/font-awesome.min.css" rel="stylesheet">
+
+      <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+      <link href="https://didattica.polito.it/jquery/bootstrap-3.3.6/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+      <script src="https://didattica.polito.it/jquery/jquery-1.11.3.min.js"></script>
+      <!-- Bootstrap core JavaScript
+      ================================================== -->
+      <!-- Placed at the end of the document so the pages load faster -->
+      <script src="https://didattica.polito.it/jquery/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+      <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+      <script src="https://didattica.polito.it/jquery/bootstrap-3.3.6/js/ie10-viewport-bug-workaround.js"></script>
+      <script type="text/javascript">
+          var btooltip = $.fn.tooltip.noConflict();
+          $.fn.btooltip = btooltip;
+          $(document).ready(function(){
+            $("#logoPoli").click(function(event) {
+              window.location = "http://www.polito.it/";
+            });
+            $("#titoloPagina").click(function(event) {
+              window.location = "https://didattica.polito.it/";
+            });
+          });
+      </script>
+
+      <script src="/jquery/test_portale/js/bootstrap-confirmation.min.js"></script>
+      <script src="https://didattica.polito.it/jquery/jquery.blockUI.js" type="text/javascript"></script>
+
+<script src="https://didattica.polito.it/jquery/jquery-ui-1.11.4/jquery-ui.js"></script>
+<script type="text/javascript" src="/jquery/bootstrap-datepicker-1.5.0/js/bootstrap-datepicker.min.js"></script>
+           <script type="text/javascript" src="/jquery/bootstrap-datepicker-1.5.0/js/bootstrap-datepicker.it.min.js"></script>
+<script type="text/javascript" src="/jquery/bootstrap-datetimepicker/bootstrap-datetimepicker.js"></script>
+      <!-- smoothness -->
+      <link rel="stylesheet" href="https://didattica.polito.it/jquery/jquery-ui-1.11.4/jquery-ui.css">
+      <link rel="stylesheet" href="https://didattica.polito.it/jquery/jquery-ui-1.11.4/jquery-ui.structure.css">
+      <link rel="stylesheet" href="https://didattica.polito.it/jquery/jquery-ui-1.11.4/jquery-ui.theme.css">
+<link rel="stylesheet" type="text/css" href="/jquery/bootstrap-datepicker-1.5.0/css/bootstrap-datepicker3.min.css">
+<link rel="stylesheet" href="/jquery/bootstrap-datetimepicker/bootstrap-datetimepicker.css" />
+      <style>
+          span.blink_span{
+            animation: blink 1s linear infinite;
+          }
+          @keyframes blink{
+            0%{opacity: 0;}
+            50%{opacity: .5;}
+            100%{opacity: 1;}
+          }
+      </style>
+      <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+      <!--[if lt IE 9]>
+        <script src="https://didattica.polito.it/jquery/bootstrap-3.3.6/js/html5shiv.min.js"></script>
+        <script src="https://didattica.polito.it/jquery/bootstrap-3.3.6/js/respond.min.js"></script>
+      <![endif]-->
+<script type="text/javascript" src="/jquery/datatables/js/datatables.min.js"></script>
+<script type="text/javascript" src="/jquery/datatables/js/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript" src="/jquery/datatables/js/dataTables.responsive.min.js"></script>
+<script type="text/javascript" src="/jquery/datatables/js/moment.min.js"></script>
+<script type="text/javascript" src="/jquery/datatables/js/datetime-moment.js"></script>
+<script type="text/javascript" language="javascript" src="/jquery/datatables/js/dataTables.scroller.min.js"></script>
+<script type="text/javascript" language="javascript" src="/jquery/datatables/js/dataTables.fixedColumns.min.js"></script>
+<script src="/jquery/replace_anchor_links.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/jquery/datatables/css/dataTables.bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="/jquery/datatables/css/responsive.bootstrap.min.css" />
+<link href="https://didattica.polito.it/favicon.ico" rel="shortcut icon"/>
+           <link href="https://didattica.polito.it/jquery/test_portale/css/didattica.css" rel="stylesheet" type="text/css">
+           <link href="https://didattica.polito.it/jquery/test_portale/css/global.css" rel="stylesheet" type="text/css">
+           <link href="https://didattica.polito.it/jquery/test_portale/css/header_fluid.css" rel="stylesheet" type="text/css">
+           <link href="https://didattica.polito.it/zxd/css/5_3/cookiebar.min.css" rel="stylesheet" type="text/css">
+           <link href="https://didattica.polito.it/css/flags.min.css" rel="stylesheet" type="text/css">
+    <link href="https://didattica.polito.it/jscript/bstoggle/css/bootstrap-toggle.css" rel="stylesheet">
+    <script src="https://didattica.polito.it/jscript/bstoggle/js/bootstrap-toggle.js"></script>
+
+</head>
+          <body>
+<!--
+                          header
+-->
+    <!-- barra del titolo -->
+    <div class="c_titleBar" >
+      <div class="clearfix" style="height: 100%;padding-left:10px;padding-right:10px;"><!--tolta class gridContainer -->
+        <div class="c_relative">
+          <div class="c_logoPoli2"></div>
+<div class="row">
+<div class="col-sm-12 col-xs-6" style="padding-top:8px;"><img src="https://didattica.polito.it/didattica/assets/png/poli_logo_poli.png" class="img-responsive"></div>
+<div id="d_contenitoreIcone" class="fix_rgl" style="position: absolute; width: 300px; height: 30px;">
+</div>
+</div>
+<div class="c_titoliPagina">
+            <div id="titoloPagina" class="c_titoloPagina buttonMode">Servizi per la didattica</div>
+<div id="sottotitoloPagina" class="c_sottotitoloPagina"><div class="h3"> Elearning</div></div>
+</div>
+        </div>
+      </div>
+    </div>
+    <div class="c_strisciaArancione" ></div>
+    <!-- fine header -->
+<style>
+            .tooltip-inner {
+              max-width: 100%;
+            }
+            .tooltipClass {
+              max-width: 300px;
+              text-align:left;
+            }
+            .label {
+              color: #337ab7;
+              text-align:left;
+            }
+            .value {
+              text-align:left;
+              padding-left:6px;
+            }
+         </style>
+<script type="text/javascript">
+            function html5_seek (secondi){
+              var video = document.getElementsByTagName("video")[0];
+              video.pause();
+              video.currentTime = secondi;
+              video.play();
+            }
+            function flow_seek(secondi) {
+              if ($f("aflowplayer").isPlaying()) $f("aflowplayer").pause();
+              $f("aflowplayer").seek(secondi);
+              $f("aflowplayer").play();
+            }
+            function video_seek(secondi){
+              var video = document.getElementsByTagName("video")[0];
+              if (video.style.display=='none') {
+                flow_seek(secondi);
+              } else {
+                html5_seek(secondi);
+              }
+            }
+            function espandi() {
+                $(".argomentiEspansi").toggle();
+                if ( $("#imgEspandi").attr("src") == "/img/ramo_espandi.gif") {
+                  $("#imgEspandi").attr("src","/img/ramo_espanso.gif");
+                } else {
+                  $("#imgEspandi").attr("src","/img/ramo_espandi.gif");
+                }
+            }
+            var tmpTitle;
+
+           tmpTitle = "<table style=\"text-align:left;\">"
+                    + "<tr><td style=\"color:#337ab7\"> File</td><td class=\"value\">Algoritmi_e_programmazione_lez_01.mp4</td></tr>"
+                    + "<tr><td style=\"color:#337ab7\"> Date</td><td class=\"value\">2019-09-30</td></tr>"
+                    + "<tr><td style=\"color:#337ab7\"> Size</td><td class=\"value\">167.748 Mibyte</td></tr>"
+                    + "<tr><td style=\"color:#337ab7\"> Codec</td><td class=\"value\">mp4 (H264/AAC)</td></tr>"
+                    + "<tr><td style=\"color:#337ab7\"> Bitrate</td><td class=\"value\">244.862 kbit/s</td></tr>"
+                    + "<tr><td style=\"color:#337ab7\"> Duration</td><td class=\"value\">01:35:46</td></tr>";
+          if ("1280x720@25" != "") {
+           tmpTitle = tmpTitle + "<tr><td style=\"color:#337ab7\"> Resolution</td><td class=\"value\">1280x720@25</td></tr>";
+          }
+          tmpTitle = tmpTitle + "</table>";
+          var tooltip76422 = {
+              title: tmpTitle,
+              html: true,
+              placement: "right"
+           }
+           tmpTitle = "<table style=\"text-align:left;\">"
+                    + "<tr><td style=\"color:#337ab7\"> File</td><td class=\"value\">Algoritmi_e_programmazione_lez_01_slide_iphone.mp4</td></tr>"
+                    + "<tr><td style=\"color:#337ab7\"> Date</td><td class=\"value\">2019-09-30</td></tr>"
+                    + "<tr><td style=\"color:#337ab7\"> Size</td><td class=\"value\">76.622 Mibyte</td></tr>"
+                    + "<tr><td style=\"color:#337ab7\"> Codec</td><td class=\"value\">mp4 (H264/AAC)</td></tr>"
+                    + "<tr><td style=\"color:#337ab7\"> Bitrate</td><td class=\"value\">111.844 kbit/s</td></tr>"
+                    + "<tr><td style=\"color:#337ab7\"> Duration</td><td class=\"value\">01:35:46</td></tr>";
+          if ("800x600@15" != "") {
+           tmpTitle = tmpTitle + "<tr><td style=\"color:#337ab7\"> Resolution</td><td class=\"value\">800x600@15</td></tr>";
+          }
+          tmpTitle = tmpTitle + "</table>";
+          var tooltip76424 = {
+              title: tmpTitle,
+              html: true,
+              placement: "right"
+           }
+           tmpTitle = "<table style=\"text-align:left;\">"
+                    + "<tr><td style=\"color:#337ab7\"> File</td><td class=\"value\">Algoritmi_e_programmazione_lez_01_audio.mp3</td></tr>"
+                    + "<tr><td style=\"color:#337ab7\"> Date</td><td class=\"value\">2019-09-30</td></tr>"
+                    + "<tr><td style=\"color:#337ab7\"> Size</td><td class=\"value\">43.845 Mibyte</td></tr>"
+                    + "<tr><td style=\"color:#337ab7\"> Codec</td><td class=\"value\">mp3 (MP3)</td></tr>"
+                    + "<tr><td style=\"color:#337ab7\"> Bitrate</td><td class=\"value\">64.000 kbit/s</td></tr>"
+                    + "<tr><td style=\"color:#337ab7\"> Duration</td><td class=\"value\">01:35:46</td></tr>";
+          if ("" != "") {
+           tmpTitle = tmpTitle + "<tr><td style=\"color:#337ab7\"> Resolution</td><td class=\"value\"></td></tr>";
+          }
+          tmpTitle = tmpTitle + "</table>";
+          var tooltip76423 = {
+              title: tmpTitle,
+              html: true,
+              placement: "right"
+           }
+          var tooltipBtnPlay = {
+            title: "<div class=\"tooltipClass\">PLAY: avvia il video e abilita il pulsante \"BOOKMARK!\", che consente "
+                 + "di memorizzare in una tabella dei bookmark personalizzati</div>",
+            html: true,
+            placement: "bottom"
+          }
+          var tooltipBtnTag = {
+            title: "<div class=\"tooltipClass\">BOOKMARK!: crea un bookmark nel momento in cui viene cliccato. Nella tabella sottostante bisogna "
+                 + "inserire una o più parole chiave<br />relative al bookmark e poi cliccare sul pulsante SALVA.</div>",
+            html: true,
+            placement: "bottom"
+          }
+          $(function(){
+            $("#btnPlay").btooltip( tooltipBtnPlay );
+            $("#btnTag").btooltip( tooltipBtnTag );
+
+            $(".btn").click(function(){
+                $(this).btooltip("hide");
+            });
+            $("#btnTag").click(function(){
+                $("#tabellaBookmarks").show();
+            });
+
+$("#video76422").btooltip( tooltip76422 )
+$("#video76424").btooltip( tooltip76424 )
+$("#video76423").btooltip( tooltip76423 )
+ });
+         </script>
+<nav class="navbar navbar-default" style="background-color:rgb(252, 122, 8);">
+            <div class="container-fluid">
+              <!-- Brand and toggle get grouped for better mobile display -->
+              <div class="navbar-header" id="menu_videolez_small">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar_videolez" aria-expanded="false" aria-controls="navbar">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+              </div>
+<!-- Collect the nav links, forms, and other content for toggling -->
+              <div id="navbar_videolez" class="navbar-collapse collapse" aria-expanded="true">
+<ul class="nav navbar-nav" id="menu_videolez">
+<li><a href="https://didattica.polito.it/pls/portal30/portal30.home"> Portale della Didattica</a></li>
+<li><a href="https://didattica.polito.it/pls/portal30/portal30_sso.logout_portale">Logout</a></li>
+</ul>
+</div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+           </nav>
+<div class="container-fluid">
+<div class="row">
+<div class="cols-xs-12 col-md-4">
+<div class="well">
+<nav class="navbar navbar-default">
+              <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header" id="menu_videolez_small">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar_left_menu" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                </div>
+<!-- Collect the nav links, forms, and other content for toggling -->
+                <div id="navbar_left_menu" class="navbar-collapse collapse" aria-expanded="true">
+<div id="lessonList">
+<h2>
+<a href="javascript: espandi();"><img id="imgEspandi" src="/img/ramo_espanso.gif" alt=" visualizza argomenti" /></a>
+&nbsp;Lezioni on-line
+</h2>
+<ul id="navbar_left_menu">
+<li class="h5">
+<a style="color:#003576;" href="sviluppo.videolezioni.vis?cor=456&amp;arg=Lezioni%20on-line&amp;lez=19638">2020_Lezione 01</a>
+&nbsp;&nbsp;<span class="small">del&nbsp;30/09/2019</span>
+</li>
+<li class="h6 argomentiEspansi" id="1" style="display:block;">
+-&nbsp;<a class="argoLink" href="javascript:video_seek(0);">Introduzione al corso</a><br />
+</li>
+<li class="h5">
+<a style="color:#003576;" href="sviluppo.videolezioni.vis?cor=456&amp;arg=Lezioni%20on-line&amp;lez=19649">2020_Lezione 02</a>
+&nbsp;&nbsp;<span class="small">del&nbsp;30/09/2019</span>
+</li>
+<li class="h6 argomentiEspansi" id="2" style="display:block;">
+-&nbsp;<a class="argoLink" href="sviluppo.videolezioni.vis?cor=456&amp;arg=Lezioni%20on-line&#38;lez=19649&#38;seek=0">L'essenziale del linguaggio C (parte 1)</a><br />
+</li>
+<li class="h5">
+<a style="color:#003576;" href="sviluppo.videolezioni.vis?cor=456&amp;arg=Lezioni%20on-line&amp;lez=19668">2020_Lezione 03</a>
+&nbsp;&nbsp;<span class="small">del&nbsp;01/10/2019</span>
+</li>
+<li class="h6 argomentiEspansi" id="3" style="display:block;">
+-&nbsp;<a class="argoLink" href="sviluppo.videolezioni.vis?cor=456&amp;arg=Lezioni%20on-line&#38;lez=19668&#38;seek=0">Gli Algoritmi</a><br />
+</li>
+<li class="h5">
+<a style="color:#003576;" href="sviluppo.videolezioni.vis?cor=456&amp;arg=Lezioni%20on-line&amp;lez=19818">2020_Lezione 04</a>
+&nbsp;&nbsp;<span class="small">del&nbsp;03/10/2019</span>
+</li>
+<li class="h6 argomentiEspansi" id="4" style="display:block;">
+-&nbsp;<a class="argoLink" href="sviluppo.videolezioni.vis?cor=456&amp;arg=Lezioni%20on-line&#38;lez=19818&#38;seek=0">L'essenziale del linguaggio C (parte 2)</a><br />
+</li>
+<li class="h5">
+<a style="color:#003576;" href="sviluppo.videolezioni.vis?cor=456&amp;arg=Lezioni%20on-line&amp;lez=19726">2020_Lezione 05</a>
+&nbsp;&nbsp;<span class="small">del&nbsp;03/10/2019</span>
+</li>
+<li class="h6 argomentiEspansi" id="5" style="display:block;">
+-&nbsp;<a class="argoLink" href="sviluppo.videolezioni.vis?cor=456&amp;arg=Lezioni%20on-line&#38;lez=19726&#38;seek=0">Esercitazione 01 - Gomoku</a><br />
+</li>
+<li class="h5">
+<a style="color:#003576;" href="sviluppo.videolezioni.vis?cor=456&amp;arg=Lezioni%20on-line&amp;lez=20920">2020_Lezione 06</a>
+&nbsp;&nbsp;<span class="small">del&nbsp;07/10/2019</span>
+</li>
+<li class="h6 argomentiEspansi" id="6" style="display:block;">
+-&nbsp;<a class="argoLink" href="sviluppo.videolezioni.vis?cor=456&amp;arg=Lezioni%20on-line&#38;lez=20920&#38;seek=0">Gli Algoritmi</a><br />
+-&nbsp;<a class="argoLink" href="sviluppo.videolezioni.vis?cor=456&amp;arg=Lezioni%20on-line&#38;lez=20920&#38;seek=0">Analisi della complessita'</a><br />
+</li>
+</ul>
+</div>
+</div><!-- /.navbar-collapse -->
+           </div><!-- /.container-fluid -->
+          </nav>
+</div>
+</div>
+<div class="col-md-8">
+<div class="row">
+<div class="col-sm-12">
+<div class="h2 text-primary">Algoritmi e programmazione</div>
+<h3> Prof. Paolo Enrico CAMURATI</h3>
+<div class="clearfix">&nbsp;</div>
+<h2>2020_Lezione 01</h2>
+<div class="clearfix">&nbsp;</div>
+<!-- Begin VideoJS -->
+              <div class="video-js-box">
+              <!-- Using the Video for Everybody Embed Code http://camendesign.com/code/video_for_everybody -->
+<video class="video-js" width="640" controls preload poster="https://video.polito.it/dl/CD53249A5E2B1ADB349508B61298F068/5E942499/2020/2020_THMNOX1_0237678/Algoritmi_e_programmazione_lez_01/Algoritmi_e_programmazione_lez_01.jpg">
+<source src="https://video.polito.it/dl/06749B657FDECB37464B6C821D7DACA6/5E942499/2020/2020_THMNOX1_0237678/Algoritmi_e_programmazione_lez_01/Algoritmi_e_programmazione_lez_01.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
+ <!-- Flash Fallback. Use any flash video player here. Make sure to keep the vjs-flash-fallback class. -->
+<div class="vjs-flash-fallback" style="border-style: none; height: 480px; width: 640px; overflow: hidden; background-color: rgb(220, 220, 220);">
+<script src="https://video.polito.it/flowplayer/flowplayer-latest.min.js" type="text/javascript"></script>
+<script src="https://video.polito.it/flowplayer/flowplayer.embed-latest.min.js" type="text/javascript"></script>
+<a id="aflowplayer" style="display:block;width:640px;height:480px;" href="https://video.polito.it/dl/06749B657FDECB37464B6C821D7DACA6/5E942499/2020/2020_THMNOX1_0237678/Algoritmi_e_programmazione_lez_01/Algoritmi_e_programmazione_lez_01.mp4">
+                Javascript and Flash Player needed to see this video<span style="display: none;" id="n1272458860377S">&nbsp;</span>
+               </a>
+<script type="text/javascript">
+                document.getElementById("aflowplayer").innerHTML="";
+                $f("aflowplayer", "https://video.polito.it/flowplayer/flowplayer.commercial-latest.swf",{'clip':{'autoPlay':false,'autoBuffering':false,'provider':'lighttpd'},'key':'#$2391daeed0cba24346d','contextMenu':['Politecnico di Torino','Servizi per la Didattica'],'playlist':[{'url':'https://video.polito.it/dl/CD53249A5E2B1ADB349508B61298F068/5E942499/2020/2020_THMNOX1_0237678/Algoritmi_e_programmazione_lez_01/Algoritmi_e_programmazione_lez_01.jpg','autoPlay':true,'scaling':'fit'},{'url':'https://video.polito.it/dl/06749B657FDECB37464B6C821D7DACA6/5E942499/2020/2020_THMNOX1_0237678/Algoritmi_e_programmazione_lez_01/Algoritmi_e_programmazione_lez_01.mp4'}],'plugins':{'lighttpd':{'url':'flowplayer.pseudostreaming-latest.swf'},'controls':{'url':'flowplayer.controls-latest.swf','autoHide':'always','fullscreen':true,'scrubber':true,'time':true,'backgroundColor':'','tooltips':{'buttons':'true'}}}});
+                //endflowplayer
+               </script>
+</div>
+</video>
+                </div>
+                <!-- End VideoJS -->
+</div>
+</div>
+<div class="clearfix">&nbsp;</div>
+<div class="row">
+<div class="col-md-12 col-lg-8">
+<button class="btn btn-default btn-sm" id="btnPlay" onclick="playForTag();">PLAY</button>
+&nbsp;&nbsp;
+<button class="btn btn-default btn-sm" id="btnTag" disabled="disabled" onclick="tag();">BOOKMARK!</button>
+<p><a href="javascript:void(null);" onclick="$('#tabellaBookmarks').toggle()">Clicca per vedere l'elenco dei bookmark memorizzati</a></p>
+<form id="tabtags" name="tabtags" action="sviluppo.videolezioni.save_bookmarks" method="post">
+<div id="tabellaBookmarks" style="display:none;">
+<table id="tabella" class="table">
+<thead>
+<div colspan="6" class="pull-right">
+</div>
+<tr><th></th><th> n° riga</th><th> Offset</th><th> Tags</th><th> Autore</th><th> Azioni</th></tr>
+</thead>
+<tbody>
+</tbody>
+<tfoot>
+<tr style="text-align:center"><th colspan="6"> Nessun bookmark memorizzato</th></tr>
+</tfoot>
+</table>
+</div>
+<input type="hidden" id="id_cor" name="cor" value="456" />
+<input type="hidden" id="id_lez" name="lez" value="19638" />
+</form>
+</div>
+</div>
+<div class="clearfix">&nbsp;</div>
+<div class="row">
+<div class="col-md-12 col-lg-8">
+<div class="well">
+<table><tr><td>
+<h2> Download</h2>
+<p> offline version (click con tasto dx sul file e salva con nome...)</p>
+<ul>
+<li><a id="video76422" href="/pls/portal30/sviluppo.videolezioni.download?fid=76422">Video</a></li>
+<li><a id="video76424" href="/pls/portal30/sviluppo.videolezioni.download?fid=76424">iPhone</a></li>
+<li><a id="video76423" href="/pls/portal30/sviluppo.videolezioni.download?fid=76423">Audio</a></li>
+</ul>
+</td></tr><tr><td>
+<div id="content2_reverse" class="text-justify">
+I contenuti del presente sito sono soggetti al diritto d'autore. Tutti i diritti su di essi sono
+                espressamente riservati. I contenuti medesimi possono essere utilizzati solo per lo studio e la
+                consultazione da parte dei singoli studenti del Politecnico di Torino, con espressa esclusione
+                di ogni tipo di commercializzazione, modifica, pubblicazione in rete o altro utilizzo non
+                autorizzato per iscritto. Ogni abuso verra' punito ai sensi di legge.
+                Le lezioni vengono pubblicate entro 3 giorni lavorativi dalla loro registrazione
+                In caso di problemi tecnici con l'accesso o l'utilizzo delle lezioni online scrivere a:
+                <a href="mailto:lezioni.online@polito.it">lezioni.online@polito.it</a>
+</div>
+</td></tr></table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+      // funzione per il filtro sulla tabella
+      function filtro (elem, _id, cellNr){
+          var autore = elem.options[elem.selectedIndex].value;
+          var table = document.getElementById("tabella");
+          for (var r = 1; r < table.rows.length; r++){
+              ele = table.rows[r].cells[cellNr].innerHTML.replace(/<[^>]+>/g,"");
+              if (ele.indexOf(autore)>=0 )
+                  table.rows[r].style.display = '';
+              else table.rows[r].style.display = 'none';
+          }
+          // fix per non togliere il th
+          table.rows[1].style.display = '';
+      }
+      // forza la disabilitazione del pulsante "BOOKMARK" al caricamento della pagina
+      document.getElementById("btnTag").disabled=true;
+      var posSalva = 0;
+      function addRow(tableID,tempo) {
+          var table = document.getElementById(tableID);
+          var rowCount = table.rows.length;
+          var row = table.insertRow(rowCount);
+          var cell1 = row.insertCell(0);
+          var cell2 = row.insertCell(1);
+          //  cell2.innerHTML = rowCount;
+          var cell3 = row.insertCell(2);
+          cell3.innerHTML = tempo;
+          var tempo_h= document.createElement("input");
+          tempo_h.type = "hidden";
+          //  tempo_h.setAttribute("name","tempo-"+rowCount);
+          tempo_h.setAttribute("name","tempo");
+          tempo_h.setAttribute("id","tempo-"+rowCount);
+          tempo_h.setAttribute("value",tempo);
+          cell3.appendChild(tempo_h);
+          var cell4 = row.insertCell(3);
+          var element4 = document.createElement("input");
+          element4.type = "text";
+          //  element4.setAttribute("name","tag-"+rowCount);
+          element4.setAttribute("name","tag");
+          var element5 = document.createElement("input");
+          element5.type = "button";
+          element5.value = "SAVE";
+          element5.setAttribute("name","btn"+rowCount);
+          element5.setAttribute("id","btn"+rowCount);
+          element5.setAttribute("onclick","javascript:salva('"+ rowCount +"');");
+          if(posSalva>0){
+              document.getElementById("btn"+posSalva).style.display = "none";
+          }
+          posSalva = rowCount;
+          cell4.appendChild(element4);
+          cell4.appendChild(element5);
+      }
+      function salva(n) {
+          if(confirm(" Salvare i cambiamenti?")){
+            // richiama uno script che salva le righe aggiunte nella tabella
+            document.getElementById("tabtags").submit();
+          } else return false;
+      }
+      function cancTag(id) {
+          if(confirm(" Sicuro di voler cancellare questo segnalibro?")){
+            // richiama uno script che cancella il record dalla tabella
+            var cor = document.getElementById("id_cor").value;
+            var lez = document.getElementById("id_lez").value;
+            window.location="sviluppo.videolezioni.del_bookmarks?pid="+id+"&cor="+cor+"&lez="+lez;
+          }
+      }
+      function playForTag(){
+          var video1 = document.getElementsByTagName("video")[0];
+          if (video1.style.display=='none') {
+              // non HTML5
+              if ($f("aflowplayer").isPlaying()) $f("aflowplayer").pause();
+              $f("aflowplayer").seek(0);
+              $f("aflowplayer").play();
+          } else {
+              // HTML5
+              video1.pause();
+              video1.currentTime = 0;
+              video1.play();
+          }
+          document.getElementById("btnPlay").disabled=true;
+          document.getElementById("btnTag").disabled=false;
+      }
+      // mette lo 0 a min o sec se < 9
+      function adjustData()  {
+          if (arguments.length == 1) {
+              var w = arguments[0];
+              w = w > 9 ? w : "0" + w;
+              return { sec: w };
+          } else if (arguments.length == 2) {
+              var w = arguments[0];
+              var z = arguments[1];
+              w = w > 9 ? w : "0" + w;
+              z = z > 9 ? z : "0" + z;
+              return { min: z, sec: w };
+          }
+      }
+      var empty_data = "00:00:00 / ";
+      var data = "";
+      function tag(){
+          var video1 = document.getElementsByTagName("video")[0];
+          var t=0;
+          if (video1.style.display=='none') {
+              // non HTML5
+              t = $f("aflowplayer").getTime();
+          } else {
+              // HTML5
+              t = video1.currentTime;
+          }
+          t = Math.round(t);
+          if (t < 60) { // secondi
+              d_obj = adjustData(t);
+              tempo = "00:00:" + d_obj.sec;
+          } else if (t < 3600) { // minuti
+              var sec = t % 60;
+              var min = Math.floor(t / 60);
+              d_obj = adjustData(sec, min);
+              tempo = "00:" + d_obj.min + ":" + d_obj.sec;
+          } else  { // ore
+              var h = Math.floor(t / 3600);
+              var m_t = t % 3600;
+              var m = Math.floor(m_t / 60);
+              var s = m_t % 60;
+              d_obj = adjustData(s, m);
+              tempo = h + ":" + d_obj.min + ":" + d_obj.sec;
+          }
+          if($("#aggiunta").is(":hidden"))
+              $("#aggiunta").toggle('fast');
+          addRow('tabella',tempo);
+      }
+  </script>
+<!--
+                          footer
+-->
+    <div style="height: 30px;"> </div>
+    <div style="height: 2px; position: relative; width: 100%; background-color: #003576;">
+         <hr style="display:none;" />
+    </div>
+    <div style="height: 5px; *height: 5px;">
+      <hr style="display:none;" />
+    </div>
+    <div style=" position: relative; margin-left: 10px; margin-right: 10px;">
+      <div style=" position: relative;  height: 40px;  text-align: right;  font-size: 11px;  color: #003576;  line-height: 16px;">
+        <span style="font-size:12px;">&#169; Politecnico di Torino</span> <br/><span style="font-size:11px;">Corso Duca degli Abruzzi, 24 - 10129 Torino, ITALY </span>
+      </div>
+<div style=" border:0px solid grey; position: absolute; top: 0px; left: 0px; height: 20px; ">
+       <a style="font-size:13px;color: #003576;" href="mailto:lezioni.online@polito.it">m@il</a>
+</div>
+    </div>
+    <!-- fine footer -->
+    <div style="position: relative; height: 10px;"></div>
+            <script type="text/javascript">
+              <!--
+            var _gaq = _gaq || [];
+            _gaq.push(["_setAccount", "UA-416861-1"]);
+            _gaq.push(["_trackPageview"]);
+            _gaq.push(["t2._setAccount", "UA-34281885-1"]);
+            _gaq.push(["t2._setDomainName", ".polito.it"]);
+            _gaq.push(["t2._trackPageview"]);
+              (function() {
+                var ga = document.createElement("script"); ga.type = "text/javascript"; ga.async = true;
+                ga.src = ("https:" == document.location.protocol ? "https://ssl" : "http://www") + ".google-analytics.com/ga.js";
+                var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(ga, s);
+              })();
+              -->
+            </script>
+
+</body>
+</html>
