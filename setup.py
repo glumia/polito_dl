@@ -29,4 +29,5 @@ setuptools.setup(
         [console_scripts]
         polito_dl=polito_dl.cli:main
     """,
+    extras_require={"dev": ["pytest", "flake8", "black"]},
 )
