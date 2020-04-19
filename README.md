@@ -1,3 +1,6 @@
+![Test](https://github.com/glumia/polito_dl/workflows/Test/badge.svg?branch=master)
+![Flake8 & Black](https://github.com/glumia/polito_dl/workflows/Flake8%20&%20Black/badge.svg)
+
 polito_dl - Command-line tool and library to download Polytechnic of Turin's online 
 lessons from didattica.polito.it
 
