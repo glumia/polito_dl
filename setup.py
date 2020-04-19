@@ -5,7 +5,7 @@ with open("README.md", "r") as fp:
 
 setuptools.setup(
     name="polito_dl",
-    version="2.0.0",
+    version="2.0.0-alpha",
     author="Giuseppe Lumia",
     author_email="glumia@protonmail.com",
     description=(
