@@ -22,13 +22,13 @@ Then open the command prompt and type:
   
 # Description
 polito_dl is a CLI tool and python libray to download video lessons from 
-didattica.polito.it with a simple and powerful command-line interface. It features
- download progress bar and possibility to resume downloads. 
- URL can be the link of a single videolesson or the course's on-line lessons main page.
+didattica.polito.it with a simple and powerful command-line interface. It features a 
+download progress bar and possibility to resume downloads.  
+URL can be the link of a single videolesson or the course's on-line lessons main page.
 
 
 ### CLI Interface
-```bash
+```
 $ polito_dl
 Usage: polito_dl [OPTIONS] COMMAND [ARGS]...
 
@@ -47,7 +47,7 @@ Commands:
 ```
 
 #### Download lectures
-```bash
+```
 $ polito_dl download --help
 Usage: polito_dl download [OPTIONS] URL
 
@@ -68,7 +68,7 @@ Algoritmi_e_programmazione_lez_02.mp4  [##################------------------]   
 ```
 
 #### Print course information
-```bash
+```
 $ polito_dl print-course-json --help
 Usage: polito_dl print-course-json [OPTIONS] URL
 
