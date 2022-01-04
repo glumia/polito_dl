@@ -8,7 +8,7 @@ setuptools.setup(
     version="2.0.0-alpha",
     license="GPLv3",
     author="Giuseppe Lumia",
-    author_email="glumia@protonmail.com",
+    author_email="gius@glumia.dev",
     description=(
         "Command-line tool and library to download Polytechnic of Turin's online "
         "lessons from didattica.polito.it"
